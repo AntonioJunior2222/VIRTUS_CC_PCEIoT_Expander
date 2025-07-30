@@ -1,143 +1,40 @@
-#include <stdio.h>
-#include "hardware/i2c.h"
 #include "pico/stdlib.h"
+#include "hardware/i2c.h"
+#include <stdio.h>
+#include "libs/expander_lib/inc/expander_lib.h"
 
-
+// Definições de hardware da placa
 #define I2C_PORT i2c0
 #define SDA_PIN 4
 #define SCL_PIN 5
-#define LED1 5
-#define LED2 8
-#define LED3 13
-
-
-//Os pinos do expander que estão conectados são o 0, 1 e 2 para os botões
-// 5, 6, 7    LED1
-// 8, 9, 10   LED2
-// 13, 14, 15 LED3
-
-uint8_t registerA = 0b00000111;
-uint8_t registerB = 0b00000000;
-uint8_t data = 0b00000000;
-
-#define SX1509B_ADDR 0x3E
-
-void sx1509b_write_register(uint8_t reg, uint8_t value) {
-    uint8_t data[2] = {reg, value};
-    i2c_write_blocking(i2c0, SX1509B_ADDR, data, 2, false);
-}
-
-void sx1509b_init() {
-    // Configura IO0, IO1, IO2 como entrada (bits 0,1,2 = 1)
-    // Demais IOs como saída (bits 3 a 7 = 0)
-    sx1509b_write_register(0x0F, 0b00000111);
-    sx1509b_write_register(0x0E, 0b00000000);
-}
-
-
-uint8_t sx1509b_read_register(uint8_t reg) {
-    uint8_t value;
-    i2c_write_blocking(i2c0, 0x3E, &reg, 1, true); // envia o endereço do registrador
-    i2c_read_blocking(i2c0, 0x3E, &value, 1, false); // lê o valor
-    return value;
-}
-
-
-void config_led_pins() {
-    // === DIRECTION ===
-    // Lê valores atuais dos registradores 0x0E e 0x0F
-    uint8_t direction_0 = sx1509b_read_register(0x0F);  // IO0 - IO7
-    uint8_t direction_1 = sx1509b_read_register(0x0E);  // IO8 - IO15
-
-    // Zera bits dos LEDs (0 = saída)
-    direction_0 &= ~((1 << 5) | (1 << 6) | (1 << 7));      // IO5, IO6, IO7
-    direction_1 &= ~((1 << 0) | (1 << 1) | (1 << 2) |      // IO8, IO9, IO10
-                    (1 << 5) | (1 << 6) | (1 << 7));       // IO13, IO14, IO15
-
-    sx1509b_write_register(0x0F, direction_0);
-    sx1509b_write_register(0x0E, direction_1);
-}
-
-
-void sx1509b_set_color(uint8_t pin, bool on) {
-    uint8_t reg = (pin < 8) ? 0x11 : 0x10;
-    uint8_t bit = pin % 8;
-
-    uint8_t value = sx1509b_read_register(reg);
-
-    if (on) {
-        value &= ~(1 << bit);  // Nível baixo para acender
-    } else {
-        value |= (1 << bit);   // Nível alto para apagar
-    }
-
-    sx1509b_write_register(reg, value);
-}
-
-
-void sx1509b_set_led(uint8_t led_id, bool r, bool g, bool b){
-    if(led_id == LED1){
-        sx1509b_set_color(5, r);
-        sx1509b_set_color(6, g);
-        sx1509b_set_color(7, b);
-    }
-
-    else if(led_id == LED2){
-        sx1509b_set_color(8, r);
-        sx1509b_set_color(9, g);
-        sx1509b_set_color(10, b);
-    }
-
-    else if(led_id == LED3){
-        sx1509b_set_color(13, r);
-        sx1509b_set_color(14, g);
-        sx1509b_set_color(15, b);
-    }
-}
-
-
-void ler_botoes() {
-    uint8_t estado = sx1509b_read_register(0x11); // REG_INPUT_A
-    bool botao0 = (estado & (1 << 0)); // ativo em nível baixo
-    bool botao1 = (estado & (1 << 1));
-    bool botao2 = (estado & (1 << 2));
-
-    printf("B0: %d | B1: %d | B2: %d\n", botao0, botao1, botao2);
-}
-
 
 int main() {
     stdio_init_all();
 
+    // Inicialização do barramento I2C na placa
     i2c_init(I2C_PORT, 100 * 1000);
     gpio_set_function(SDA_PIN, GPIO_FUNC_I2C);
     gpio_set_function(SCL_PIN, GPIO_FUNC_I2C);
     gpio_pull_up(SDA_PIN);
     gpio_pull_up(SCL_PIN);
 
-    sleep_ms(3000);
-    printf("Iniciando scanner I2C...\r\n");
+    sleep_ms(1000);
+    printf("Pico W iniciado. Configurando perifericos...\n");
 
-    for (uint8_t addr = 0x08; addr <= 0x77; addr++) {
-        uint8_t dummy;
-        int result = i2c_read_blocking(I2C_PORT, addr, &dummy, 1, true);
-        if (result >= 0) {
-            printf("Dispositivo encontrado no endereco 0x%02X\r\n", addr);
-        }
-    }
+    // Chama as funções de alto nível da nossa biblioteca
+    config_buttons();
+    config_leds();
 
-    printf("Scanner concluído.\r\n");
+    printf("Configuracao concluida. Testando LEDs...\n");
 
-    // ORDEM CORRETA:
-    sx1509b_init();         // Inicializa com botões como entrada
-    config_led_pins();      // Ajusta bits dos LEDs sem afetar botões
-
-    sx1509b_set_led(LED1, 1, 1, 1);
-    sx1509b_set_led(LED2, 1, 0, 1);
-    sx1509b_set_led(LED3, 1, 1, 0);
+    // Usa as funções da biblioteca para controlar o hardware
+    sx1509b_set_led(LED1, true, false, false);  // Vermelho
+    sx1509b_set_led(LED2, false, true, false);  // Verde
+    sx1509b_set_led(LED3, false, false, true);  // Azul
 
     while (true) {
-        ler_botoes();
+        read_buttons();
         sleep_ms(200);
     }
+    return 0;
 }
