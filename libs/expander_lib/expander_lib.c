@@ -71,10 +71,23 @@ void sx1509b_set_led(uint8_t led_id, bool r, bool g, bool b) {
     }
 }
 
-void read_buttons() {
-    uint8_t estado = sx1509b_read_register(0x11);
-    bool botao0 = (estado & (1 << 0)); // Lógica para pull-down (ativo em alto)
-    bool botao1 = (estado & (1 << 1));
-    bool botao2 = (estado & (1 << 2));
-    printf("B0: %d | B1: %d | B2: %d\r\n", botao0, botao1, botao2);
+// Função foi modificada para retornar o estado dos botões
+uint8_t get_buttons_state() {
+    uint8_t raw_state = sx1509b_read_register(0x11); // Lê o RegDataA
+    uint8_t button_states = 0;
+
+    // Lógica para pull-down (ativo em alto)
+    bool botao0 = (raw_state & (1 << 0));
+    bool botao1 = (raw_state & (1 << 1));
+    bool botao2 = (raw_state & (1 << 2));
+
+    // Monta o byte de retorno
+    if (botao0) button_states |= (1 << 0);
+    if (botao1) button_states |= (1 << 1);
+    if (botao2) button_states |= (1 << 2);
+    
+    // Opcional: se ainda quiser imprimir para debug
+    // printf("B0: %d | B1: %d | B2: %d\r\n", botao0, botao1, botao2);
+
+    return button_states;
 }

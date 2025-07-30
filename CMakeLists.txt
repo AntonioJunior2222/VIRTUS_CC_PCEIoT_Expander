@@ -35,7 +35,9 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(rgb_buttons rgb_buttons.c )
+add_executable(rgb_buttons 
+    rgb_buttons.c
+    test/test_lib.c )
 
 pico_set_program_name(rgb_buttons "rgb_buttons")
 pico_set_program_version(rgb_buttons "0.1")

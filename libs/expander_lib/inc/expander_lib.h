@@ -33,8 +33,9 @@ void config_leds();
 void sx1509b_set_led(uint8_t led_id, bool r, bool g, bool b);
 
 /**
- * @brief Lê o estado atual dos três botões e imprime no console.
+ * @brief Lê o estado dos botões.
+ * @return Um uint8_t onde cada bit representa um botão (bit 0 = botão 0, etc.).
  */
-void read_buttons();
+uint8_t get_buttons_state();
 
 #endif
