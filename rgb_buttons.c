@@ -17,7 +17,7 @@ int main() {
     gpio_set_function(SCL_PIN, GPIO_FUNC_I2C);
     gpio_pull_up(SDA_PIN);
     gpio_pull_up(SCL_PIN);
-    sleep_ms(1000);
+    sleep_ms(3000);
     
     // --- CONFIGURAÇÃO DOS MÓDULOS ---
     printf("Configurando a biblioteca do expander...\n");
