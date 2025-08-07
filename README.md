@@ -24,7 +24,7 @@ O microcontrolador principal do projeto, responsável por rodar a lógica princi
 
 <div>
 <img src="images/pceiot_top.png" />
-<img src="images/pceiot_bottom.png" />
+<img src="images/pceiot_bottom2.png" />
 </div>
 
 ### 2\. Expansor de I/O SX1509B
