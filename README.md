@@ -1,4 +1,4 @@
-# Controle de LEDs com Expansor de I/O SX1509B e Raspberry Pi Pico W
+# Controle de LEDs com Expansor de I/O SX1509B e Raspberry Pi Pico W na placa PCEIoT
 <p align="center">
   <img src="images/VirtusCC.png" />
 </p>
