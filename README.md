@@ -17,15 +17,17 @@ O principal objetivo do sistema é capturar comandos do usuário de forma precis
 Em resposta, o sistema fornece feedback visual através de três LEDs RGB independentes, cujo controle de cor é gerenciado diretamente pelo expansor SX1509B, aliviando o microcontrolador principal dessa tarefa. Por meio dessa estrutura modular, o projeto exemplifica a separação entre o driver de dispositivo (`expander_lib`) e a lógica de aplicação (`integrations`), uma prática fundamental no desenvolvimento de software embarcado robusto e escalável.
 
 ## Componentes de Hardware
+## Placa PCEIoT
+<div>
+<img src="images/pceiot_top.png" />
+<img src="images/pceiot_bottom2.png" />
+</div>
 
 ### 1\. Raspberry Pi Pico W
 
 O microcontrolador principal do projeto, responsável por rodar a lógica principal, se comunicar com o expansor via I²C e gerenciar o fluxo do programa.
 
-<div>
-<img src="images/pceiot_top.png" />
-<img src="images/pceiot_bottom2.png" />
-</div>
+
 
 ### 2\. Expansor de I/O SX1509B
 
