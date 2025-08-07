@@ -22,6 +22,11 @@ Em resposta, o sistema fornece feedback visual através de três LEDs RGB indepe
 
 O microcontrolador principal do projeto, responsável por rodar a lógica principal, se comunicar com o expansor via I²C e gerenciar o fluxo do programa.
 
+<div>
+<img src="images/pceiot_top.png" />
+<img src="images/pceiot_bottom.png" />
+</div>
+
 ### 2\. Expansor de I/O SX1509B
 
 [cite\_start]O SX1509B é um expansor de GPIO (General Purpose Input/Output) de 16 canais que se comunica através de uma interface I²C padrão de 400kHz[cite: 9]. Ele é o componente central para a expansão das portas do Pico.
