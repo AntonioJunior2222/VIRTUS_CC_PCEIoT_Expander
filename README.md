@@ -31,14 +31,14 @@ O microcontrolador principal do projeto, responsável por rodar a lógica princi
 
 ### 2\. Expansor de I/O SX1509B
 
-[cite\_start]O SX1509B é um expansor de GPIO (General Purpose Input/Output) de 16 canais que se comunica através de uma interface I²C padrão de 400kHz[cite: 9]. Ele é o componente central para a expansão das portas do Pico.
+O SX1509B é um expansor de GPIO (General Purpose Input/Output) de 16 canais que se comunica através de uma interface I²C padrão de 400kHz. Ele é o componente central para a expansão das portas do Pico.
 
 **Características Técnicas Notáveis:**
 
-  * [cite\_start]**16 I/Os programáveis:** Cada pino pode ser configurado individualmente como entrada ou saída, com pull-ups, pull-downs e polaridade programáveis[cite: 17, 27].
-  * [cite\_start]**Driver de LED Integrado:** Possui um motor de hardware para controle avançado de LEDs, permitindo efeitos de intensidade (PWM de 256 passos), piscar (blink) e respirar (fade in/out) sem a necessidade de intervenção do microcontrolador[cite: 13, 23].
-  * [cite\_start]**Motor de Varredura de Teclado:** Suporta a leitura de teclados matriciais de até 8x8 (64 teclas)[cite: 14, 26].
-  * [cite\_start]**Saída de Interrupção (NINT):** Pode ser configurado para alertar o microcontrolador sobre eventos (como um botão pressionado) através de um pino de interrupção dedicado, otimizando o processamento[cite: 16, 30].
+  * **16 I/Os programáveis:** Cada pino pode ser configurado individualmente como entrada ou saída, com pull-ups, pull-downs e polaridade programáveis.
+  * **Driver de LED Integrado:** Possui um motor de hardware para controle avançado de LEDs, permitindo efeitos de intensidade (PWM de 256 passos), piscar (blink) e respirar (fade in/out) sem a necessidade de intervenção do microcontrolador.
+  * **Motor de Varredura de Teclado:** Suporta a leitura de teclados matriciais de até 8x8 (64 teclas).
+  * **Saída de Interrupção (NINT):** Pode ser configurado para alertar o microcontrolador sobre eventos (como um botão pressionado) através de um pino de interrupção dedicado, otimizando o processamento.
 
 ### 3\. LEDs RGB
 
