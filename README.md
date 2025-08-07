@@ -1,5 +1,7 @@
 # Controle de LEDs com Expansor de I/O SX1509B e Raspberry Pi Pico W
-
+<p align="center">
+  <img src="images/VirtusCC.png" />
+</p>
 ## Autores
 
 - [Antonio Roberto](https://github.com/antoniojunior2222)
