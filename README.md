@@ -1,6 +1,17 @@
 # Controle de LEDs com Expansor de I/O SX1509B e Raspberry Pi Pico W
 
-Este projeto demonstra a utilização do expansor de I/O I²C SX1509B em conjunto com um Raspberry Pi Pico W para controlar periféricos de forma modular e eficiente. A aplicação principal consiste no controle de três LEDs RGB independentes através de três botões push-button, com a lógica de aplicação encapsulada e separada do driver do dispositivo.
+## Autores
+
+- [Antonio Roberto](https://github.com/antoniojunior2222)
+- [Ismael Marinho](https://github.com/smalljooj)
+
+## Introdução
+
+Este documento apresenta as funcionalidades desenvolvidas no projeto de controle de periféricos, utilizando um microcontrolador Raspberry Pi Pico W e o expansor de I/O SX1509B, integrados na placa PCEIoT desenvolvida pelo VIRTUS-CC. Realizado no contexto de projetos de Sistemas Embarcados em Campina Grande, o sistema foi concebido para demonstrar uma arquitetura de software modular no controle de dispositivos de entrada e saída.
+
+O principal objetivo do sistema é capturar comandos do usuário de forma precisa por meio de três botões push-button. Estes componentes de entrada, configurados com resistores de pull-down externos, enviam sinais de nível alto ao serem pressionados, permitindo que a lógica de aplicação detecte eventos de clique discretos para acionar as funcionalidades de controle.
+
+Em resposta, o sistema fornece feedback visual através de três LEDs RGB independentes, cujo controle de cor é gerenciado diretamente pelo expansor SX1509B, aliviando o microcontrolador principal dessa tarefa. Por meio dessa estrutura modular, o projeto exemplifica a separação entre o driver de dispositivo (`expander_lib`) e a lógica de aplicação (`integrations`), uma prática fundamental no desenvolvimento de software embarcado robusto e escalável.
 
 ## Componentes de Hardware
 
