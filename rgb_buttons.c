@@ -25,16 +25,14 @@ int main() {
     config_leds();
     
     printf("Configurando o estado inicial das integracoes...\n");
-    init_integrations(); // Chama a inicialização do nosso novo módulo
+    init_integrations();
 
     printf("Sistema pronto. Entrando no loop principal.\n");
 
-    // --- LOOP PRINCIPAL ---
-    while (true) {
-        // Apenas uma função é chamada. Toda a complexidade está encapsulada.
-        handle_button_integrations();
 
-        // Pausa para não sobrecarregar o processador
+    while (true) {
+        
+        handle_button_integrations();
         sleep_ms(20);
     }
     

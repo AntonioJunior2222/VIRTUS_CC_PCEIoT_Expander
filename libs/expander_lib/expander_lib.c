@@ -7,8 +7,7 @@
 #define I2C_PORT i2c0
 #define SX1509B_ADDR 0x3E
 
-// --- FUNÇÕES AUXILIARES (PRIVADAS) ---
-// O 'static' limita o escopo destas funções apenas a este arquivo.
+
 static void sx1509b_write_register(uint8_t reg, uint8_t value) {
     uint8_t data[2] = {reg, value};
     i2c_write_blocking(I2C_PORT, SX1509B_ADDR, data, 2, false);
@@ -22,7 +21,6 @@ static uint8_t sx1509b_read_register(uint8_t reg) {
 }
 
 static void sx1509b_set_color(uint8_t pin, bool on) {
-    // RegDataA (0x11) para IO0-7, RegDataB (0x10) para IO8-15
     uint8_t reg = (pin < 8) ? 0x11 : 0x10;
     uint8_t bit = pin % 8;
     uint8_t value = sx1509b_read_register(reg);
@@ -71,7 +69,7 @@ void sx1509b_set_led(uint8_t led_id, bool r, bool g, bool b) {
     }
 }
 
-// Função foi modificada para retornar o estado dos botões
+
 uint8_t get_buttons_state() {
     uint8_t raw_state = sx1509b_read_register(0x11); // Lê o RegDataA
     uint8_t button_states = 0;
@@ -85,9 +83,6 @@ uint8_t get_buttons_state() {
     if (botao0) button_states |= (1 << 0);
     if (botao1) button_states |= (1 << 1);
     if (botao2) button_states |= (1 << 2);
-    
-    // Opcional: se ainda quiser imprimir para debug
-    // printf("B0: %d | B1: %d | B2: %d\r\n", botao0, botao1, botao2);
 
     return button_states;
 }

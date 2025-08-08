@@ -1,11 +1,9 @@
-// integrations.c
-
 #include "inc/test_lib.h"
-#include "expander_lib.h" // Inclui a biblioteca do expander
+#include "expander_lib.h" 
 #include <stdio.h>
 
 // --- ESTADO INTERNO DO MÓDULO ---
-// 'static' garante que estas variáveis mantenham seus valores entre as chamadas da função
+
 static color_state_t led1_color_state;
 static color_state_t led2_color_state;
 static color_state_t led3_color_state;
@@ -33,7 +31,6 @@ void handle_button_integrations() {
 
     // --- LÓGICA PARA BOTÃO 0 -> LED 1 ---
     if ((current_buttons & (1 << 0)) && !(previous_buttons_state & (1 << 0))) {
-        // MENSAGEM ADICIONADA
         printf("Botao 0 pressionado -> LED 1 mudou de cor.\r\n");
 
         led1_color_state = (led1_color_state + 1) % 5; // Cicla entre 5 estados
@@ -51,7 +48,7 @@ void handle_button_integrations() {
         // MENSAGEM ADICIONADA
         printf("Botao 1 pressionado -> LED 2 mudou de cor.\r\n");
 
-        led2_color_state = (led2_color_state + 1) % 5; // Cicla entre 5 estados
+        led2_color_state = (led2_color_state + 1) % 5; 
         switch (led2_color_state) {
             case OFF:   sx1509b_set_led(LED2, false, false, false); break;
             case RED:   sx1509b_set_led(LED2, true,  false, false); break;
@@ -66,7 +63,7 @@ void handle_button_integrations() {
         // MENSAGEM ADICIONADA
         printf("Botao 2 pressionado -> LED 3 mudou de cor.\r\n");
         
-        led3_color_state = (led3_color_state + 1) % 5; // Cicla entre 5 estados
+        led3_color_state = (led3_color_state + 1) % 5; 
         switch (led3_color_state) {
             case OFF:   sx1509b_set_led(LED3, false, false, false); break;
             case RED:   sx1509b_set_led(LED3, true,  false, false); break;
